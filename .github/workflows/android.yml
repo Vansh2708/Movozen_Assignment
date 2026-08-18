@@ -19,14 +19,22 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    # Step 1: Automatically regenerates the missing gradle-wrapper.jar file
+    - name: Generate Gradle Wrapper JAR
+      working-directory: ./DashcamApp
+      run: gradle wrapper --gradle-version 8.4
+
+    # Step 2: Grant execution permissions to gradlew
     - name: Make gradlew executable
       working-directory: ./DashcamApp
       run: chmod +x gradlew
 
+    # Step 3: Compile the Android Debug APK
     - name: Build Debug APK
       working-directory: ./DashcamApp
       run: ./gradlew assembleDebug
 
+    # Step 4: Save the APK for download
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
