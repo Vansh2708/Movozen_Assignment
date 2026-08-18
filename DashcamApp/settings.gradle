@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // REQUIRED: JitPack repository for RootEncoder library
         maven { url 'https://jitpack.io' }
     }
 }
