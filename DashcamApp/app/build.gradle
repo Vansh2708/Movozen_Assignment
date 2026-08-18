@@ -34,6 +34,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
 
-    // RootEncoder RTMP module
-    implementation 'com.github.pedroSG94.RootEncoder:rtmp:2.2.6'
+    // Updated to full library module (includes RtmpCamera2 and OpenGlView)
+    implementation 'com.github.pedroSG94.RootEncoder:library:2.2.6'
 }
