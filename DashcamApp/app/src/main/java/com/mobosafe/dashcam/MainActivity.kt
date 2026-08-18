@@ -11,12 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.pedro.common.ConnectChecker
 import com.pedro.encoder.input.video.CameraHelper
-import com.pedro.rtplibrary.rtmp.RtmpCamera2
-import com.pedro.rtplibrary.util.ConnectCheckerRtmp
-import com.pedro.rtplibrary.view.OpenGlView
+import com.pedro.library.rtmp.RtmpCamera2
+import com.pedro.library.view.OpenGlView
 
-class MainActivity : AppCompatActivity(), ConnectCheckerRtmp {
+class MainActivity : AppCompatActivity(), ConnectChecker {
 
     private lateinit var rtmpCamera2: RtmpCamera2
     private lateinit var openGlView: OpenGlView
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), ConnectCheckerRtmp {
             1280, 720,
             25,
             1500 * 1024,
-            false,
+            0,
             CameraHelper.Facing.BACK
         )
 
@@ -130,14 +130,20 @@ class MainActivity : AppCompatActivity(), ConnectCheckerRtmp {
         }
     }
 
-    override fun onConnectionSuccessRtmp() {
+    override fun onConnectionStarted(url: String) {
+        runOnUiThread {
+            tvStatus.text = "Connecting..."
+        }
+    }
+
+    override fun onConnectionSuccess() {
         runOnUiThread {
             tvStatus.text = "Connected - streaming live"
             Log.d("RTMP", "Connection success")
         }
     }
 
-    override fun onConnectionFailedRtmp(reason: String) {
+    override fun onConnectionFailed(reason: String) {
         runOnUiThread {
             tvStatus.text = "Connection failed: $reason"
             Toast.makeText(this, "Connection failed: $reason", Toast.LENGTH_LONG).show()
@@ -145,21 +151,21 @@ class MainActivity : AppCompatActivity(), ConnectCheckerRtmp {
         }
     }
 
-    override fun onNewBitrateRtmp(bitrate: Long) {}
+    override fun onNewBitrate(bitrate: Long) {}
 
-    override fun onDisconnectRtmp() {
+    override fun onDisconnect() {
         runOnUiThread {
             tvStatus.text = "Disconnected"
         }
     }
 
-    override fun onAuthErrorRtmp() {
+    override fun onAuthError() {
         runOnUiThread {
             tvStatus.text = "Auth error"
         }
     }
 
-    override fun onAuthSuccessRtmp() {
+    override fun onAuthSuccess() {
         runOnUiThread {
             tvStatus.text = "Auth success"
         }
