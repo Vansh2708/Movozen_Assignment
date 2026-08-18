@@ -34,8 +34,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
 
-    // RootEncoder - camera/mic capture + RTMP publishing
-    // If this exact version fails to resolve, check the latest release tag at
-    // https://github.com/pedroSG94/RootEncoder and swap the version number.
-    implementation 'com.github.pedroSG94.RootEncoder:library:2.2.6'
+    // RootEncoder RTMP module
+    implementation 'com.github.pedroSG94.RootEncoder:rtmp:2.2.6'
 }
