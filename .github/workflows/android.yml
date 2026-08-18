@@ -19,6 +19,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Make gradlew executable
+      working-directory: ./DashcamApp
+      run: chmod +x gradlew
+
     - name: Build Debug APK
       working-directory: ./DashcamApp
       run: ./gradlew assembleDebug
